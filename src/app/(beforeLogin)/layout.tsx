@@ -1,7 +1,12 @@
-export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+import styles from "@/app/page.module.css";
+type Props = {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+};
+
+export default function Layout({ children, modal }: Props) {
   return (
-    <main>
-      비포로그인 레이아웃
+    <main className={styles.container}>
       {children}
       {modal}
     </main>
