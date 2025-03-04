@@ -1,5 +1,5 @@
-import SignupModal from "@/app/(beforeLogin)/_component/SignupModal";
+import { redirect } from "next/navigation";
 
 export default function Signup() {
-  return <SignupModal />;
+  redirect("/i/flow/signup");
 }
