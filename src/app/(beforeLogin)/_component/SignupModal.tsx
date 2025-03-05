@@ -9,7 +9,7 @@ export default function SignupModal() {
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [image, setImage] = useState("");
-  const [imageFile, setImageFile] = useState<File>();
+  const [, setImageFile] = useState<File>();
 
   const router = useRouter();
   const onClickClose = () => {
@@ -27,8 +27,15 @@ export default function SignupModal() {
   const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
     setNickname(e.target.value);
   };
-  const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
-    e.target.files && setImageFile(e.target.files[0]);
+  const onChangeImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImageFile(e.target.files[0]);
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+    }
   };
 
   const onSubmit: FormEventHandler = (e) => {
@@ -73,7 +80,7 @@ export default function SignupModal() {
             </button>
             <div>계정을 생성하세요.</div>
           </div>
-          <form>
+          <form onSubmit={onSubmit}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
